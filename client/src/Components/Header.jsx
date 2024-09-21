@@ -13,7 +13,7 @@ export default function Header() {
         <div className="flex items-center space-x-5">
           <button className="relative text-2xl text-gray-600">
             <GoBell size={32} />
-            <span className="absolute top-0 right-0 -mt-1 -mr-1 flex justify-center items-center bg-indigo-600 text-white text-[10px] w-5 h-4 rounded-full border-2 border-white">
+            <span className="absolute top-0 right-0 -mt-1 -mr-1 flex justify-center items-center bg-indigo-600 text-white text-[10px] w-4 h-4 rounded-full border-2 border-white">
               9
             </span>
           </button>

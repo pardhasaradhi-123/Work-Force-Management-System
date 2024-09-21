@@ -62,47 +62,22 @@ export default function AuthForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      const existingData =
-        JSON.parse(localStorage.getItem("userAccounts")) || [];
-
-      if (isSignUp) {
-        const existingAccount = existingData.find(
-          (account) => account.email === inputState.email
-        );
-
-        if (existingAccount) {
-          toast.warn("Account already exists! Go to Sign In Form");
-        } else {
-          const newData = {
-            email: inputState.email,
-            password: inputState.password,
-          };
-
-          existingData.push(newData);
-          localStorage.setItem("userAccounts", JSON.stringify(existingData));
-
-          toast.success(`${inputState.username} sign up successful!`);
-          setInputState({
-            email: "",
-            password: "",
-          });
-          navigate("/student");
-        }
+      if (
+        inputState.email === "admin@gmail.com" &&
+        inputState.password === "admin@123"
+      ) {
+        toast.success(`${inputState.username} sign up successful!`);
+        setInputState({
+          email: "",
+          password: "",
+        });
+        navigate("/admin");
       } else {
-        const existingUser = existingData.find(
-          (user) => user.email === inputState.email
-        );
-        if (existingUser) {
-          navigate("/student");
-        } else {
-          toast.error("Account does not exist!");
-        }
-        if (
-          inputState.email === "staff@gmail.com" &&
-          inputState.password === "1234567890"
-        ) {
-          navigate("/admin-dashboard");
-        }
+        toast.error("Invalid details!");
+        setInputState({
+          email: "",
+          password: "",
+        });
       }
     }
   };

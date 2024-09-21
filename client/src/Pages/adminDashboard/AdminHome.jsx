@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaUsers,
   FaChartLine,
@@ -8,12 +8,24 @@ import {
 import AdminProductionGraph from "../../Components/AdminProductionGraph";
 
 export default function Home() {
+  const [employeeData, setEmployeeData] = useState([]);
+
+  const fetchEmployeeData = async () => {
+    const res = await fetch("http://localhost:5000/employee/getAll");
+    const result = await res.json();
+    setEmployeeData(result);
+  };
+
+  useEffect(() => {
+    fetchEmployeeData();
+  }, []);
+
   const cardData = [
     {
       id: 1,
       name: "total no.of Employees",
       icon: FaUsers,
-      value: "300",
+      value: employeeData.length,
       bgColor: "bg-gradient-to-r from-blue-100 to-blue-200",
       textColor: "text-blue-700",
     },
