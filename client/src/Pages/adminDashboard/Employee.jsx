@@ -87,7 +87,7 @@ const Employee = () => {
         </div>
       </div>
 
-      {employeeData.length === 0 ? (
+      {employeeData.length === 0 || filteredData.length === 0 ? (
         <div className="w-full flex flex-col justify-center items-center">
           <div className="w-[500px]">
             <Lottie animationData={no_Employees} />
@@ -112,40 +112,29 @@ const Employee = () => {
                 <th className="border border-gray-300 px-4 py-2">Action</th>
               </tr>
             </thead>
+
             <tbody>
-              {filteredData.length === 0 ? (
-                <div className="w-screen flex flex-col justify-center items-center border-red-300 border-2">
-                  <div className="w-[500px]">
-                    <Lottie animationData={no_Employees} />
-                  </div>
-                  <h1 className="font-semibold">
-                    There is no employee data. Please add the required employee
-                    details.
-                  </h1>
-                </div>
-              ) : (
-                filteredData.map((employee, index) => (
-                  <tr key={employee._id} className="text-center">
-                    <td className="border border-gray-300 px-4 py-2">
-                      {index + 1}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2 capitalize">
-                      {employee.name}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2">
-                      {employee.employeeId}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2">
-                      {employee.role}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2">
-                      <button onClick={() => handleDelete(employee._id)}>
-                        <FaTrash color="red" size={25} />
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
+              {filteredData.map((employee, index) => (
+                <tr key={employee._id} className="text-center">
+                  <td className="border border-gray-300 px-4 py-2">
+                    {index + 1}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 capitalize">
+                    {employee.name}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {employee.employeeId}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {employee.role}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <button onClick={() => handleDelete(employee._id)}>
+                      <FaTrash color="red" size={25} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

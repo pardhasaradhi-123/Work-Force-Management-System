@@ -67,8 +67,7 @@ const Overview = () => {
                     Name: <span className="font-normal">Ashik</span>
                   </h3>
                   <h3 className="text-xl font-semibold">
-                    Designation:{" "}
-                    <span className="font-normal">AI Architect</span>
+                    Designation: <span className="font-normal">CNC Worker</span>
                   </h3>
                 </div>
               </div>
@@ -78,7 +77,7 @@ const Overview = () => {
                   ID: <span className="font-normal">123456</span>
                 </h3>
                 <h3 className="text-xl font-semibold">
-                  Shift: <span className="font-normal">A/N</span>
+                  Shift: <span className="font-normal">2</span>
                 </h3>
               </div>
             </div>

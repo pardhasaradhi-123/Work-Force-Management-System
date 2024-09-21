@@ -16,7 +16,7 @@ export default function Header() {
           >
             <BsPersonWorkspace size={35} />
             <p className="capitalize font-bold max-md:hidden text-xl">
-              WF mana-gent
+              TS man-Agent
             </p>
           </Link>
         </div>

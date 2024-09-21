@@ -66,14 +66,24 @@ export default function AuthForm() {
         inputState.email === "admin@gmail.com" &&
         inputState.password === "admin@123"
       ) {
-        toast.success(`${inputState.username} sign up successful!`);
+        toast.success(`sign up successful!`);
         setInputState({
           email: "",
           password: "",
         });
         navigate("/admin");
+      } else if (
+        inputState.email === "employee@gmail.com" &&
+        inputState.password === "employee@123"
+      ) {
+        toast.success(`sign up successful!`);
+        setInputState({
+          email: "",
+          password: "",
+        });
+        navigate("/employee");
       } else {
-        toast.error("Invalid details!");
+        toast.error(`Invalid Detail!`);
         setInputState({
           email: "",
           password: "",

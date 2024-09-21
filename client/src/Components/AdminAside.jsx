@@ -58,7 +58,7 @@ export default function Sidebar() {
         >
           <BsPersonWorkspace size={35} />
           <p className="capitalize font-bold max-md:hidden text-xl">
-            WF mana-gent
+            TS man-Agent
           </p>
         </Link>
         <ul className="max-sm:w-auto">

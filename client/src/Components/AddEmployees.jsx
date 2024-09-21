@@ -49,7 +49,7 @@ export default function AddEmployees() {
     {
       name: "password",
       label: "Password",
-      type: "text",
+      type: "password",
       placeholder: "Enter your password",
     },
     {

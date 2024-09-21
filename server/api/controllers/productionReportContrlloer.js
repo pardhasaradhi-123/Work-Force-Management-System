@@ -1,5 +1,18 @@
 const ProductionReportModel = require("../models/productionReport");
 
+const getAllProductionReport = async (req, res) => {
+  try {
+    const result = await ProductionReportModel.find();
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      res.status(404).send("Not Found");
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 const saveProductionReport = async (req, res) => {
   try {
     const productionReport = await new ProductionReportModel({
@@ -22,3 +35,5 @@ const saveProductionReport = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+module.exports = { saveProductionReport, getAllProductionReport };

@@ -1,21 +1,42 @@
 import React, { useState, useRef, useEffect } from "react";
 import Draggable from "react-draggable";
 import {
-  AreaChart,
-  Area,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Area,
+  AreaChart,
 } from "recharts";
 
 const ShiftSchedule = () => {
   const totalHours = 24;
 
-  const [shifts, setShifts] = useState([]);
+  const initialShifts = [
+    { name: "Kanishk", start: 0, width: 20, role: "Shift Incharge" },
+    { name: "Lalith", start: 7, width: 20, role: "Shift Incharge" },
+    { name: "Alexia", start: 2, width: 20, role: "Shift Incharge" },
+    { name: "Kowshik", start: 10, width: 20, role: "Shift Incharge" },
+    { name: "Kamesh", start: 2, width: 20, role: "Shift Incharge" },
+    { name: "Ashik", start: 19, width: 20, role: "Production Workers" },
+    { name: "Joe", start: 10, width: 20, role: "Production Workers" },
+    { name: "Ram", start: 2, width: 20, role: "Production Workers" },
+    { name: "Lalith", start: 13, width: 20, role: "CNC Workers" },
+    { name: "Adithya", start: 2, width: 20, role: "CNC Workers" },
+    { name: "Ajay", start: 19, width: 20, role: "CNC Workers" },
+    { name: "Surya", start: 5, width: 20, role: "CNC Workers" },
+    { name: "Pardhu", start: 15, width: 20, role: "Final Inspectors" },
+    { name: "Rohith", start: 4, width: 20, role: "Final Inspectors" },
+    { name: "Mohan", start: 0, width: 20, role: "Final Inspectors" },
+  ];
+
+  const [shifts, setShifts] = useState(initialShifts);
   const [filteredRole, setFilteredRole] = useState("Shift Incharge");
+
   const containerRef = useRef(null);
   const [containerWidth, setContainerWidth] = useState(0);
 
@@ -24,38 +45,6 @@ const ShiftSchedule = () => {
       setContainerWidth(containerRef.current.offsetWidth);
     }
   }, [containerRef]);
-
-  // Fetch employees from the API
-  useEffect(() => {
-    const fetchEmployees = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/employee/getAll");
-        const data = await response.json();
-
-        const filteredData = data
-          .filter((employee) =>
-            [
-              "Shift Incharge",
-              "Production Worker",
-              "CNC Worker",
-              "Final Inspector",
-            ].includes(employee.role)
-          )
-          .map((employee) => ({
-            name: employee.name,
-            start: employee.shiftStart,
-            width: employee.shiftWidth,
-            role: employee.role,
-          }));
-
-        setShifts(filteredData);
-      } catch (error) {
-        console.error("Error fetching employees:", error);
-      }
-    };
-
-    fetchEmployees();
-  }, []);
 
   const convertToTime = (percentage) => {
     const hours = (percentage / 100) * totalHours;
@@ -110,12 +99,13 @@ const ShiftSchedule = () => {
               onChange={handleFilterChange}
             >
               <option value="Shift Incharge">Shift Incharge</option>
-              <option value="Production Worker">Production Worker</option>
-              <option value="CNC Worker">CNC Worker</option>
-              <option value="Final Inspector">Final Inspector</option>
+              <option value="Production Workers">Production Workers</option>
+              <option value="CNC Workers">CNC Workers</option>
+              <option value="Final Inspectors">Final Inspectors</option>
             </select>
           </div>
         </div>
+
         <div className="flex flex-col w-full">
           {/* Adjusted Time Labels */}
           <div className="flex justify-start mb-2 text-xs text-gray-500 border-b-2 border-gray-500">
@@ -190,6 +180,7 @@ const ShiftSchedule = () => {
             data={timeSlots}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
+            {/* Gradient for Area */}
             <defs>
               <linearGradient id="colorEmployees" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
@@ -211,17 +202,13 @@ const ShiftSchedule = () => {
               }}
             />
             <YAxis
-              label={{
-                value: "Employees",
-                angle: -90,
-                position: "insideLeft",
-              }}
+              label={{ value: "Employees", angle: -90, position: "insideLeft" }}
             />
             <Tooltip
               contentStyle={{ backgroundColor: "#333", color: "#fff" }}
             />
             <Legend />
-
+            {/* Area for Fill */}
             <Area
               type="monotone"
               dataKey="employees"
@@ -233,7 +220,6 @@ const ShiftSchedule = () => {
           </AreaChart>
         </ResponsiveContainer>
       </div>
-
       <div className="flex justify-end">
         <button className="bg-indigo-500 p-2 px-4 m-2 rounded-md font-medium uppercase hover:bg-indigo-600 hover:text-white hover:rounded-full">
           Save
